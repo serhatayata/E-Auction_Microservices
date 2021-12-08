@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sourcing", "Sourcing", "{27
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esourcing.Sourcing", "Esourcing.Sourcing\Esourcing.Sourcing.csproj", "{3DCAE37C-1A67-4340-A43A-56965E0EAF0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMQ", "EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{54D4D824-2E23-419C-BA79-0CEB701CE98F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{3DCAE37C-1A67-4340-A43A-56965E0EAF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DCAE37C-1A67-4340-A43A-56965E0EAF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DCAE37C-1A67-4340-A43A-56965E0EAF0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D4D824-2E23-419C-BA79-0CEB701CE98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D4D824-2E23-419C-BA79-0CEB701CE98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D4D824-2E23-419C-BA79-0CEB701CE98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D4D824-2E23-419C-BA79-0CEB701CE98F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{FE1EBAC9-CF45-4570-979D-B975CAFEE9E0} = {41320E76-A3A2-42AC-921A-6BBFEFC78BA8}
 		{27BA85D6-DB4D-4008-812C-1441AFEEDB32} = {41320E76-A3A2-42AC-921A-6BBFEFC78BA8}
 		{3DCAE37C-1A67-4340-A43A-56965E0EAF0A} = {27BA85D6-DB4D-4008-812C-1441AFEEDB32}
+		{54D4D824-2E23-419C-BA79-0CEB701CE98F} = {E5ED5F3A-5C5B-4037-A779-01A3D5697E3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7B5C338-DA4B-4B4E-892B-CC5BB11FFA2D}
