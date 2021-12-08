@@ -1,5 +1,7 @@
 using Esourcing.Sourcing.Data.Abstract;
 using Esourcing.Sourcing.Data.Concrete;
+using Esourcing.Sourcing.Repositories.Abstract;
+using Esourcing.Sourcing.Repositories.Concrete;
 using Esourcing.Sourcing.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +39,8 @@ namespace Esourcing.Sourcing
 
             #region Project Dependencies
             services.AddTransient<ISourcingContext, SourcingContext>();
+            services.AddTransient<IAuctionRepository, AuctionRepository>();
+            services.AddTransient<IBidRepository, BidRepository>();
             #endregion
 
             #region Swagger Dependencies
