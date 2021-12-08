@@ -42,14 +42,13 @@ namespace Esourcing.Sourcing
             services.AddTransient<IAuctionRepository, AuctionRepository>();
             services.AddTransient<IBidRepository, BidRepository>();
             #endregion
-
-            #region Swagger Dependencies
             services.AddControllers();
+            #region Swagger Dependencies
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "ESourcing.Products",
+                    Title = "ESourcing.Sourcing",
                     Version = "v1"
                 });
             });
