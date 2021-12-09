@@ -1,8 +1,11 @@
-﻿using Esourcing.Sourcing.Data.Abstract;
+﻿using AutoMapper;
+using Esourcing.Sourcing.Data.Abstract;
 using Esourcing.Sourcing.Entities;
 using Esourcing.Sourcing.Repositories.Abstract;
 using Esourcing.Sourcing.Repositories.Concrete;
+using EventBusRabbitMQ.Core;
 using EventBusRabbitMQ.Events.Concrete;
+using EventBusRabbitMQ.Producer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,11 +24,15 @@ namespace Esourcing.Sourcing.Controllers
         private readonly IAuctionRepository _auctionRepository;
         private readonly ILogger<AuctionController> _logger;
         private readonly IBidRepository _bidRepository;
-        public AuctionController(IAuctionRepository auctionRepository,IBidRepository bidRepository, ILogger<AuctionController> logger)
+        private readonly IMapper _mapper;
+        private readonly EventBusRabbitMQProducer _eventBus;
+        public AuctionController(IAuctionRepository auctionRepository,IBidRepository bidRepository,IMapper mapper, EventBusRabbitMQProducer eventBus, ILogger<AuctionController> logger)
         {
             _auctionRepository = auctionRepository;
             _logger = logger;
             _bidRepository = bidRepository;
+            _mapper = mapper;
+            eventBus = _eventBus;
         }
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Auction>), (int)HttpStatusCode.OK)]
@@ -72,6 +79,7 @@ namespace Esourcing.Sourcing.Controllers
         [HttpPost("CompleteAuction")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         public async Task<ActionResult> CompleteAuction(string id)
         {
             Auction auction = await _auctionRepository.GetAuction(id);
@@ -90,11 +98,29 @@ namespace Esourcing.Sourcing.Controllers
             {
                 return NotFound();
             }
-            
-            
-            
 
+            OrderCreateEvent eventMessage = _mapper.Map<OrderCreateEvent>(bid);
+            eventMessage.Quantity = auction.Quantity; // Auction'daki quantity kadar teklif içerisinden alıyoruz. Total Quantity.
 
+            auction.Status = (int)Status.Closed; // İşlemleri yaptıktan sonra Status closed'a çekilir.
+            bool updateResponse = await _auctionRepository.Update(auction); // Yapılan güncellemeler database'e yansıtıldı.
+
+            if (!updateResponse)
+            {
+                _logger.LogError("Auction cannot be updated.");
+                return BadRequest();
+            }
+
+            try
+            {
+                _eventBus.Publish(EventBusConstants.OderCreateQueue, eventMessage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,"ERROR Publishing integration event : {EventId} from {AppName}", eventMessage.Id, "Sourcing");
+                throw;
+            }
+            return Accepted();
         }
     }
 }

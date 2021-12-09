@@ -44,6 +44,8 @@ namespace Esourcing.Sourcing
             services.AddTransient<ISourcingContext, SourcingContext>();
             services.AddTransient<IAuctionRepository, AuctionRepository>();
             services.AddTransient<IBidRepository, BidRepository>();
+            services.AddAutoMapper(typeof(Startup));
+
             #endregion
             services.AddControllers();
             #region Swagger Dependencies
@@ -85,7 +87,6 @@ namespace Esourcing.Sourcing
             });
 
             services.AddSingleton<EventBusRabbitMQProducer>();
-
             #endregion
 
         }
@@ -99,7 +100,6 @@ namespace Esourcing.Sourcing
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ESourcing.Products v1"));
             }
-
             app.UseRouting();
 
             app.UseAuthorization();
