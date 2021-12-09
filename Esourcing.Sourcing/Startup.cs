@@ -59,34 +59,37 @@ namespace Esourcing.Sourcing
             });
             #endregion
             #region EventBus
-            // NORMALDE 
-            services.AddSingleton<IRabbitMQPersistentConnection, DefaultRabbitMQPersistentConnection>();
-            //
-            services.AddSingleton<IRabbitMQPersistentConnection>(sp => {
+
+            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            {
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
-                var factory = new ConnectionFactory() {
-                    HostName = Configuration["EventBus:HostName"],                    
+
+                var factory = new ConnectionFactory()
+                {
+                    HostName = Configuration["EventBus:HostName"]
                 };
+
                 if (!string.IsNullOrWhiteSpace(Configuration["EventBus:UserName"]))
                 {
                     factory.UserName = Configuration["EventBus:UserName"];
                 }
+
                 if (!string.IsNullOrWhiteSpace(Configuration["EventBus:Password"]))
                 {
                     factory.UserName = Configuration["EventBus:Password"];
                 }
+
                 var retryCount = 5;
                 if (!string.IsNullOrWhiteSpace(Configuration["EventBus:RetryCount"]))
                 {
                     retryCount = int.Parse(Configuration["EventBus:RetryCount"]);
                 }
 
-                return new DefaultRabbitMQPersistentConnection(factory,retryCount,logger);
-
-
+                return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
             });
 
             services.AddSingleton<EventBusRabbitMQProducer>();
+
             #endregion
 
         }

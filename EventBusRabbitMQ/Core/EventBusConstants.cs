@@ -8,7 +8,7 @@ namespace EventBusRabbitMQ.Core
 {
     public static class EventBusConstants
     {
-        public const string OderCreateQueue = "OrderCreateQueue"; 
+        public const string OrderCreateQueue = "OrderCreateQueue"; 
 
     }
 }

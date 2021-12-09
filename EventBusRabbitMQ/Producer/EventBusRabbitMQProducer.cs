@@ -13,14 +13,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EventBusRabbitMQ.Producer
-{
-    public class EventBusRabbitMQProducer
+{    public class EventBusRabbitMQProducer
     {
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQProducer> _logger;
         private readonly int _retryCount;
 
-        public EventBusRabbitMQProducer(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQProducer> logger, int retryCount)
+        public EventBusRabbitMQProducer(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQProducer> logger, int retryCount = 5)
         {
             _persistentConnection = persistentConnection;
             _logger = logger;
@@ -34,12 +33,13 @@ namespace EventBusRabbitMQ.Producer
                 _persistentConnection.TryConnect();
             }
 
-            var policy = RetryPolicy.Handle<SocketException>()
-                  .Or<BrokerUnreachableException>()
-                  .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
-                  {
-                      _logger.LogWarning(ex, "RabbitMQ Client couldn't connect after {TimeOut}s ({ExceptionMessage})", $"{time.TotalSeconds:n1}", ex.Message);
-                  });
+            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
+            .Or<SocketException>()
+            .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+            {
+                _logger.LogWarning(ex, "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", @event.RequestId, $"{time.TotalSeconds:n1}", ex.Message);
+            });
+
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
@@ -67,10 +67,7 @@ namespace EventBusRabbitMQ.Producer
                         //implement ack handle
                     };
                 });
-
             }
-
-
         }
     }
 }

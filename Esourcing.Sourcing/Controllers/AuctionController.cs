@@ -32,7 +32,7 @@ namespace Esourcing.Sourcing.Controllers
             _logger = logger;
             _bidRepository = bidRepository;
             _mapper = mapper;
-            eventBus = _eventBus;
+            _eventBus = eventBus;
         }
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Auction>), (int)HttpStatusCode.OK)]
@@ -113,7 +113,7 @@ namespace Esourcing.Sourcing.Controllers
 
             try
             {
-                _eventBus.Publish(EventBusConstants.OderCreateQueue, eventMessage);
+                _eventBus.Publish(EventBusConstants.OrderCreateQueue, eventMessage);
             }
             catch (Exception ex)
             {
@@ -121,6 +121,29 @@ namespace Esourcing.Sourcing.Controllers
                 throw;
             }
             return Accepted();
+        }
+
+        [HttpPost("TestEvent")]
+        public ActionResult<OrderCreateEvent> TestEvent()
+        {
+            OrderCreateEvent eventMessage = new OrderCreateEvent();
+            eventMessage.AuctionId = "dummy1";
+            eventMessage.ProductId = "dummy_product_1";
+            eventMessage.Price = 10;
+            eventMessage.Quantity = 100;
+            eventMessage.SellerUserName = "test@test.com";
+
+            try
+            {
+                _eventBus.Publish(EventBusConstants.OrderCreateQueue, eventMessage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "ERROR Publishing integration event: {EventId} from {AppName}", eventMessage.Id, "Sourcing");
+                throw;
+            }
+
+            return Accepted(eventMessage);
         }
     }
 }
