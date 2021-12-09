@@ -12,6 +12,7 @@ namespace Ordering.Domain.Repositories.Base
     public interface IRepository<T> where T:Entity
     {
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate=null,
                                       Func<IQueryable<T>,IOrderedQueryable<T>> orderby=null, //burada Orderby yapılmak istenen
                                       string includeString = null, //Bu kısımda lazy loading için kullanılır

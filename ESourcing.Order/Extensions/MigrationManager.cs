@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ordering.Infrastructure.Data;
@@ -18,7 +18,7 @@ namespace ESourcing.Order.Extensions
                 try
                 {
                     var orderContext = scope.ServiceProvider.GetRequiredService<OrderContext>();
-                    if (orderContext.Database.ProviderName=="Microsoft.EntityFrameworkCore.InMemory")
+                    if (orderContext.Database.ProviderName!="Microsoft.EntityFrameworkCore.InMemory")
                     {
                         orderContext.Database.Migrate();
                     }
