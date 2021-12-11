@@ -21,7 +21,7 @@ services:
         ports:
             - "1433:1433" 
         environment:
-            SA_PASSWORD: "123"
+            SA_PASSWORD: "Sa12345678"
             ACCEPT_EULA: "Y"
 
   esourcing.products:
@@ -52,4 +52,21 @@ services:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
     ports:
       - "8001:80"
+
+
+  esourcing.order:
+    container_name: esourcingorder
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderConnection=Data Source=sourcingsqldb;Database=OrderDb;User Id=sa;Password=Sa12345678"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - sourcingsqldb
+      - rabbitmq
+    volumes:
+      - ${APPDATA}/ASP.NET/Http:/root/.aspnet/http:ro
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+    ports:
+      - "8002:80"
+
 

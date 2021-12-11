@@ -33,6 +33,7 @@ namespace ESourcing.Order
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             #region AddInfrastructure
             services.AddInfrastructure(Configuration);
             #endregion

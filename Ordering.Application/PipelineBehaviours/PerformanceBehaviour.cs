@@ -35,11 +35,5 @@ namespace Ordering.Application.PipelineBehaviours
 
             return response;
         }
-
-
-
-
-
-
     }
 }
