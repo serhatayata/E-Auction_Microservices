@@ -15,6 +15,15 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
+
+  sourcingsqldb:
+        container_name: sourcingsqldb
+        ports:
+            - "1433:1433" 
+        environment:
+            SA_PASSWORD: "123"
+            ACCEPT_EULA: "Y"
+
   esourcing.products:
     container_name: esourcingproduct
     environment:
@@ -28,7 +37,6 @@ services:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
     ports:
       - "8000:80"
-
 
   esourcing.sourcing:
     container_name: esourcingsourcing
