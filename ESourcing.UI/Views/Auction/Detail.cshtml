@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Quick Auction</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputPrice">Price</label>
+                        <input type="number" min="0" class="form-control" id="exampleInputPrice" placeholder="Enter Price" />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card-header" style="background-color:darkgrey">
+            <h3 class="card-title">Active Auction Detail</h3>
+        </div>
+        <div class="card-body">
+            <table id="exampleAuction" class="table table-bordered table-hover">
+                <thead>
+                    <tr style="background-color:darkgrey">
+                        <th>Auction User Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Serhat Ayata</td>
+                        <td>5000 $</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
