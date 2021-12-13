@@ -41,21 +41,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Start Date:</label>
-                                    <div class="input-group date" id="StartedAt" data-target-input="nearest">
-                                        <input value="12.12.2021 23:44:14" asp-for="StartedAt" class="form-control datetimepicker-input" data-target="#StartedAt" />
-                                        <div class="input-group-append" data-target="#StartedAt" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
+                                    <input type="datetime-local" asp-for="StartedAt" value="2021-01-01T03:35">
                                 </div>
                                 <div class="form-group">
                                     <label>Finish Date:</label>
-                                    <div class="input-group date" id="FinishedAt" data-target-input="nearest">
-                                        <input value="12.12.2021 23:44:14" asp-for="FinishedAt" class="form-control datetimepicker-input" data-target="#FinishedAt" />
-                                        <div class="input-group-append" data-target="#FinishedAt" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
+                                    <input type="datetime-local" asp-for="FinishedAt" value="2021-01-01T03:35">
                                 </div>
                             </div>
                         </div>

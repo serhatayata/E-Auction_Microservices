@@ -57,8 +57,8 @@ namespace ESourcing.UI.Controllers
             model.Status = default(int);
             model.CreatedAt = DateTime.Now;
             model.IncludedSellers.Add(model.SellerId);
-            model.FinishedAt = DateTime.Now;
-            model.StartedAt = DateTime.Today.AddDays(2);
+            model.FinishedAt = model.FinishedAt;
+            model.StartedAt = model.StartedAt;
             var createAuction = await _auctionClient.CreateAuction(model);
             if (createAuction.IsSuccess)
                 return RedirectToAction("Index");
