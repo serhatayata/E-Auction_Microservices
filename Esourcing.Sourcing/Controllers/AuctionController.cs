@@ -59,7 +59,7 @@ namespace Esourcing.Sourcing.Controllers
         public async Task<ActionResult<Auction>> CreateAuction([FromBody] Auction auction)
         {
             await _auctionRepository.Create(auction);
-            return CreatedAtRoute("GetAuction", new { id = auction.Id });
+            return CreatedAtRoute("GetAuction", new { id = auction.Id },auction);
         }
 
         [HttpPut]

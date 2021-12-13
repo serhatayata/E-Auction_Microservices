@@ -37,6 +37,14 @@ namespace Esourcing.Sourcing.Controllers
             IEnumerable<Bid> bids = await _bidRepository.GetBidsByAuctionId(id);
             return Ok(bids);
         }
+        [HttpGet("GetAllBidsByAuctionId")]
+        [ProducesResponseType(typeof(List<Bid>),(int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Bid>>> GetAllBidsByAuctionId(string id)
+        {
+            IEnumerable<Bid> bids = await _bidRepository.GetAllBidsByAuctionId(id);
+            return Ok(bids);
+        }
+
         [HttpGet("GetWinnerBid")]
         [ProducesResponseType(typeof(Bid), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Bid>> GetWinnerBid(string id)

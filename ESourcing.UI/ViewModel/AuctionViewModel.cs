@@ -8,22 +8,34 @@ namespace ESourcing.UI.ViewModel
 {
     public class AuctionViewModel
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Please fill the Name place.")]
+        public AuctionViewModel()
+        {
+            IncludedSellers = new List<string>();
+        }
+
+        public string Id { get; set; }
+
+        [Required(ErrorMessage = "Please fill Name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Please fill the Description")]
+
+        [Required(ErrorMessage = "Please fill Description")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "Please fill the Product Id")]
+
+        [Required(ErrorMessage = "Please fill Product")]
         public string ProductId { get; set; }
-        [Required(ErrorMessage = "Please fill the quantity")]
+
+        [Required(ErrorMessage = "Please fill Quantity")]
         public int Quantity { get; set; }
-        [Required(ErrorMessage = "Please fill the Start Date")]
+
+        [Required(ErrorMessage = "Please fill Start Date")]
         public DateTime StartedAt { get; set; }
-        [Required(ErrorMessage = "Please fill the Finish Date")]
+
+        [Required(ErrorMessage = "Please fill Finish Date")]
         public DateTime FinishedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public int Status { get; set; }
-        public int SellerId { get; set; }
+
+        public string SellerId { get; set; }
         public List<string> IncludedSellers { get; set; }
     }
 }

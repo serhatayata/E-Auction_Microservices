@@ -4,6 +4,7 @@ using ESourcing.Core.Repositories.Base;
 using ESourcing.Infrastructure.Data;
 using ESourcing.Infrastructure.Repository;
 using ESourcing.Infrastructure.Repository.Base;
+using ESourcing.UI.Clients;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,7 +58,12 @@ namespace ESourcing.UI
             services.AddControllersWithViews();
             services.AddMvc();
             services.AddRazorPages();
-           
+            #region HttpClient
+            services.AddHttpClient();
+            services.AddHttpClient<ProductClient>();
+            services.AddHttpClient<AuctionClient>();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

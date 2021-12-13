@@ -1,4 +1,5 @@
 ﻿using Esourcing.Sourcing.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Esourcing.Sourcing.Repositories.Abstract
         Task SendBid(Bid bid);
         Task<List<Bid>> GetBidsByAuctionId(string id);
         Task<Bid> GetWinnerBid(string id);
+        Task<List<Bid>> GetAllBidsByAuctionId(string id);
     }
 }
