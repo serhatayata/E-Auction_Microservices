@@ -38,11 +38,19 @@ namespace ESourcing.UI.Clients
             }
             return new Result<List<BidViewModel>>(false, ResultConstant.NotFound);
         }
-
-
-
-
-
+        public async Task<Result<string>> SendBid(BidViewModel model)
+        {
+            var dataAsString = JsonConvert.SerializeObject(model);
+            var content = new StringContent(dataAsString);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = await _client.PostAsync("api/v1/Bid", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseData = await response.Content.ReadAsStringAsync();
+                return new Result<string>(true, ResultConstant.RecordCreateSuccessfully, responseData);
+            }
+            return new Result<string>(false, ResultConstant.RecordCreateNotSuccessfully);
+        }
 
     }
 }

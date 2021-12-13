@@ -57,11 +57,18 @@ namespace ESourcing.UI
             #endregion
             services.AddControllersWithViews();
             services.AddMvc();
+            #region Session
+            services.AddSession(opt =>
+            {
+                opt.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+            #endregion
             services.AddRazorPages();
             #region HttpClient
             services.AddHttpClient();
             services.AddHttpClient<ProductClient>();
             services.AddHttpClient<AuctionClient>();
+            services.AddHttpClient<BidClient>();
             #endregion
 
         }
@@ -81,7 +88,7 @@ namespace ESourcing.UI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

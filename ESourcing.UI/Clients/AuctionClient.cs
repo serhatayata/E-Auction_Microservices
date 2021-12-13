@@ -58,7 +58,7 @@ namespace ESourcing.UI.Clients
 
         public async Task<Result<AuctionViewModel>> GetAuctionById(string id)
         {
-            var response = await _client.GetAsync("/api/v1/Auction"+id);
+            var response = await _client.GetAsync("/api/v1/Auction/"+id);
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();
@@ -75,6 +75,19 @@ namespace ESourcing.UI.Clients
             return new Result<AuctionViewModel>(false, ResultConstant.NotFound);
         }
 
+        public async Task<Result<string>> CompleteBid(string id)
+        {
+            var dataAsString = JsonConvert.SerializeObject(id);
+            var content = new StringContent(dataAsString);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = await _client.PostAsync("api/v1/Auction/CompleteAuction/",content);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseData = await response.Content.ReadAsStringAsync();
+                return new Result<string>(true, ResultConstant.RecordCreateSuccessfully, responseData);
+            }
+            return new Result<string>(false, ResultConstant.RecordCreateNotSuccessfully);
+        }
 
     }
 }

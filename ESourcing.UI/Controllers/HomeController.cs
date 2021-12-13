@@ -2,6 +2,7 @@
 using ESourcing.UI.Models;
 using ESourcing.UI.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -50,6 +51,7 @@ namespace ESourcing.UI.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
                     if (result.Succeeded)
                     {
+                        HttpContext.Session.SetString("IsAdmin", user.IsAdmin.ToString());
                         //return RedirectToAction("Index", "Home");
                         return LocalRedirect(returnUrl);
                     }

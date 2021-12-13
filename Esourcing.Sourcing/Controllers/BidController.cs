@@ -38,10 +38,11 @@ namespace Esourcing.Sourcing.Controllers
             return Ok(bids);
         }
         [HttpGet("GetAllBidsByAuctionId")]
-        [ProducesResponseType(typeof(List<Bid>),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<Bid>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Bid>>> GetAllBidsByAuctionId(string id)
         {
             IEnumerable<Bid> bids = await _bidRepository.GetAllBidsByAuctionId(id);
+
             return Ok(bids);
         }
 

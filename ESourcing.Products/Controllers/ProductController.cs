@@ -50,13 +50,13 @@ namespace ESourcing.Products.Controllers
             var product = await _productRepository.GetProduct(id);
             if (product == null)
             {
-                _logger.LogError($"Product with id : {id},hasn't been found in databasei");
+                _logger.LogError($"Product with id : {id},hasn't been found in database");
                 return NotFound();
             }
             return Ok(product);
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.Created)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
