@@ -54,11 +54,11 @@ namespace ESourcing.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AuctionViewModel model)
         {
-            model.Status = 0;
+            model.Status = default(int);
             model.CreatedAt = DateTime.Now;
             model.IncludedSellers.Add(model.SellerId);
             model.FinishedAt = DateTime.Now;
-            model.StartedAt = DateTime.Now;
+            model.StartedAt = DateTime.Today.AddDays(2);
             var createAuction = await _auctionClient.CreateAuction(model);
             if (createAuction.IsSuccess)
                 return RedirectToAction("Index");

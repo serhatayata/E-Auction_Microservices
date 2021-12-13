@@ -1,6 +1,6 @@
 ﻿//import { signalR } from "../../../lib/microsoft-signalr";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:41282/auctionhub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:8001/auctionhub").build();
 var auctionId = document.getElementById("AuctionId").value;
 //Disable sendButton button until connection is established.
 document.getElementById("sendButton").disabled = true;
