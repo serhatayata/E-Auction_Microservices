@@ -56,7 +56,7 @@ namespace ESourcing.Products.Controllers
             return Ok(product);
         }
 
-        [HttpPost("CreateProduct")]
+        [HttpPost]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.Created)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {

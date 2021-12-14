@@ -32,7 +32,7 @@ namespace ESourcing.Products
         public void ConfigureServices(IServiceCollection services)
         {
 
-            #region Configuration Dependencies
+            #region Configuration Dependencies For MongoDB
             services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
             #endregion

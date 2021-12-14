@@ -80,34 +80,30 @@ namespace Esourcing.Sourcing.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        public async Task<ActionResult> CompleteAuction([FromBody]string id)
+        public async Task<ActionResult> CompleteAuction([FromBody] string id)
         {
             Auction auction = await _auctionRepository.GetAuction(id);
-            if (auction ==null)
-            {
+            if (auction == null)
                 return NotFound();
-            }
-            if (auction.Status!=(int)Status.Active)
+
+            if (auction.Status != (int)Status.Active)
             {
-                _logger.LogError("Auction can not be completed.");
+                _logger.LogError("Auction can not be completed");
                 return BadRequest();
             }
 
             Bid bid = await _bidRepository.GetWinnerBid(id);
-            if (bid==null)
-            {
+            if (bid == null)
                 return NotFound();
-            }
 
             OrderCreateEvent eventMessage = _mapper.Map<OrderCreateEvent>(bid);
-            eventMessage.Quantity = auction.Quantity; // Auction'daki quantity kadar teklif içerisinden alıyoruz. Total Quantity.
+            eventMessage.Quantity = auction.Quantity;
 
-            auction.Status = (int)Status.Closed; // İşlemleri yaptıktan sonra Status closed'a çekilir.
-            bool updateResponse = await _auctionRepository.Update(auction); // Yapılan güncellemeler database'e yansıtıldı.
-
+            auction.Status = (int)Status.Closed;
+            bool updateResponse = await _auctionRepository.Update(auction);
             if (!updateResponse)
             {
-                _logger.LogError("Auction cannot be updated.");
+                _logger.LogError("Auction can not updated");
                 return BadRequest();
             }
 
@@ -117,9 +113,10 @@ namespace Esourcing.Sourcing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"ERROR Publishing integration event : {EventId} from {AppName}", eventMessage.Id, "Sourcing");
+                _logger.LogError(ex, "ERROR Publishing integration event: {EventId} from {AppName}", eventMessage.Id, "Sourcing");
                 throw;
             }
+
             return Accepted();
         }
 
