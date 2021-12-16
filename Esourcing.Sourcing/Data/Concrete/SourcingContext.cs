@@ -20,9 +20,10 @@ namespace Esourcing.Sourcing.Data.Concrete
             Bids = database.GetCollection<Bid>(nameof(Bid));
 
             SourcingContextSeed.SeedData(Auctions);
-        }
+        } 
         public IMongoCollection<Auction> Auctions { get; }
 
         public IMongoCollection<Bid> Bids { get; }
     }
 }
+

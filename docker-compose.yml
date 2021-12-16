@@ -3,7 +3,6 @@ version: '3.4'
 services:
   sourcingdb:
     image: mongo
-
   rabbitmq:
     image: rabbitmq:3-management
 
@@ -27,7 +26,6 @@ services:
     build:
       context: .
       dockerfile: ESourcing.Order/Dockerfile
-
   esourcing.apigateway:
     image: ${DOCKER_REGISTRY-}esourcingapigateway
     build:

@@ -13,13 +13,12 @@ namespace ESourcing.UI.Clients
 {
     public class AuctionClient
     {
-        public HttpClient _client { get; set; }
+        public HttpClient _client { get; }
 
         public AuctionClient(HttpClient client)
         {
             _client = client;
             _client.BaseAddress = new Uri(CommonInfo.BaseAddress);
-
         }
 
         public async Task<Result<List<AuctionViewModel>>> GetAuctions()
@@ -30,10 +29,8 @@ namespace ESourcing.UI.Clients
                 var responseData = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<AuctionViewModel>>(responseData);
                 if (result.Any())
-                {
                     return new Result<List<AuctionViewModel>>(true, ResultConstant.RecordFound, result.ToList());
-                }
-                    return new Result<List<AuctionViewModel>>(false, ResultConstant.NotFound);
+                return new Result<List<AuctionViewModel>>(false, ResultConstant.NotFound);
             }
             return new Result<List<AuctionViewModel>>(false, ResultConstant.NotFound);
         }
@@ -58,19 +55,14 @@ namespace ESourcing.UI.Clients
 
         public async Task<Result<AuctionViewModel>> GetAuctionById(string id)
         {
-            var response = await _client.GetAsync("/Auction/"+id);
+            var response = await _client.GetAsync("/Auction/" + id);
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<AuctionViewModel>(responseData);
                 if (result != null)
-                {
                     return new Result<AuctionViewModel>(true, ResultConstant.RecordFound, result);
-                }
-                else
-                {
-                    return new Result<AuctionViewModel>(false, ResultConstant.NotFound);
-                }
+                return new Result<AuctionViewModel>(false, ResultConstant.NotFound);
             }
             return new Result<AuctionViewModel>(false, ResultConstant.NotFound);
         }
@@ -88,6 +80,5 @@ namespace ESourcing.UI.Clients
             }
             return new Result<string>(false, ResultConstant.RecordCreateNotSuccessfully);
         }
-
     }
 }

@@ -54,7 +54,7 @@ namespace ESourcing.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AuctionViewModel model)
         {
-            model.Status = default(int);
+            model.Status = default(int);  
             model.CreatedAt = DateTime.Now;
             model.IncludedSellers.Add(model.SellerId);
             model.FinishedAt = model.FinishedAt;

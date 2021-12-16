@@ -28,16 +28,12 @@ namespace ESourcing.UI.Clients
                 var responseData = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<BidViewModel>>(responseData);
                 if (result.Any())
-                {
                     return new Result<List<BidViewModel>>(true, ResultConstant.RecordFound, result.ToList());
-                }
-                else
-                {
-                    return new Result<List<BidViewModel>>(false, ResultConstant.NotFound);
-                }
+                return new Result<List<BidViewModel>>(false, ResultConstant.NotFound);
             }
             return new Result<List<BidViewModel>>(false, ResultConstant.NotFound);
         }
+
         public async Task<Result<string>> SendBid(BidViewModel model)
         {
             var dataAsString = JsonConvert.SerializeObject(model);
@@ -51,6 +47,8 @@ namespace ESourcing.UI.Clients
             }
             return new Result<string>(false, ResultConstant.RecordCreateNotSuccessfully);
         }
+
+
 
     }
 }

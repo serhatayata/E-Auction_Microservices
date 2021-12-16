@@ -63,6 +63,19 @@
       "UpstreamPathTemplate": "/Auction/CompleteAuction/{id}",
       "UpstreamHttpMethod": [ "POST" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/v1/Auction/CompleteAuction",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "esourcingsourcing",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Auction/CompleteAuction",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
     //Bid
     {
       "DownstreamPathTemplate": "/api/v1/Bid",
@@ -126,4 +139,5 @@
       "UpstreamHttpMethod": [ "GET" ]
     }
   ]
+
 }
