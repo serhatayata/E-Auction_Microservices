@@ -37,7 +37,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/MinimalAPIDocker.csproj'
+    projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish'
