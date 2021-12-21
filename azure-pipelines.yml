@@ -41,3 +41,4 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
