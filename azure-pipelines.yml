@@ -37,13 +37,4 @@ steps:
     arguments: '--no-restore'
   displayName: 'Run Tests'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/MinimalAPIDocker.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
-    zipAfterPublish: false
-
-  displayName: 'Publish MinimalAPI'
 
