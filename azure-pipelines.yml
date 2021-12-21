@@ -40,4 +40,4 @@ steps:
     projects: '**/MinimalAPIDocker.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
-  displayName: 'Publish CustomerApi'
+  displayName: 'Publish'
