@@ -2,7 +2,7 @@
 
 E-Auction_Microservice is an online Auction website you can attend and see other user's offers.
 
-![E-Auction_Microservices](https://i.resmim.net/SwqqbT.gif)
+![E-Auction_Microservices](https://i.hizliresim.com/421avnp.gif)
 
 There are 3 types of users ;
 
